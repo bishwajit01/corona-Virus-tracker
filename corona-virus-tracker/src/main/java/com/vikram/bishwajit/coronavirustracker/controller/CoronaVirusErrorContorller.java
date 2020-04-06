@@ -1,0 +1,21 @@
+package com.vikram.bishwajit.coronavirustracker.controller;
+
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * @author Bishwajit
+ *
+ */
+@Controller
+@RequestMapping("/")
+public class CoronaVirusErrorContorller implements ErrorController{
+	
+	@GetMapping("error")
+	public String getErrorPath() {
+		return "coronaErrorView";
+	}
+
+}
