@@ -1,0 +1,5 @@
+.metadata/*
+corona-virus-tracker/.mvn/*
+corona-virus-tracker/bin/*
+corona-virus-tracker/mvnw
+corona-virus-tracker/mvnw.cmd
