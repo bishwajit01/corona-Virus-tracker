@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>CORONA VIRUS TRACKER</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+			crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="container">
+			<h1>Corona Virus Tracker Application</h1>
+			<div class="jumbotron">
+				<h1>Total Number of Confirmed Cases</h1>
+				<h3 class="display-4" th:text=${worldStats.totalNumberOfCases}></h3>
+				<br>
+				<h1>Total Number of Death Cases</h1>
+				<h3 class="display-4" th:text=${worldStats.totalNumberOfDeath}></h3>
+				<br>
+				<h1>Total Number of Recovered Cases</h1>
+				<h3 class="display-4" th:text=${worldStats.totalNumberOfRecoveries}></h3>
+				<br><br>
+				<a href="viewByLocation" title="Click Here">
+					<p>Click here to Know Region Wise Spread of Corona</p>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>
