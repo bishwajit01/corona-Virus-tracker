@@ -14,8 +14,9 @@ import com.vikram.bishwajit.coronavirustracker.models.WorldStats;
 @Component
 public class CoronaVirusTrackerBean {
 
+	private LocationStats locationstats = new LocationStats();
+	private WorldStats worldstats = new WorldStats();
 	private Set<LocationStats> allLocationStats;
-	private WorldStats worldStats;
 
 	/**
 	 * @return the allLocationStats
@@ -32,17 +33,31 @@ public class CoronaVirusTrackerBean {
 	}
 
 	/**
-	 * @return the worldStats
+	 * @return the locationstats
 	 */
-	public WorldStats getWorldStats() {
-		return worldStats;
+	public LocationStats getLocationstats() {
+		return locationstats;
 	}
 
 	/**
-	 * @param worldStats the worldStats to set
+	 * @param locationstats the locationstats to set
 	 */
-	public void setWorldStats(WorldStats worldStats) {
-		this.worldStats = worldStats;
+	public void setLocationstats(LocationStats locationstats) {
+		this.locationstats = locationstats;
+	}
+
+	/**
+	 * @return the worldstats
+	 */
+	public WorldStats getWorldstats() {
+		return worldstats;
+	}
+
+	/**
+	 * @param worldstats the worldstats to set
+	 */
+	public void setWorldstats(WorldStats worldstats) {
+		this.worldstats = worldstats;
 	}
 
 }

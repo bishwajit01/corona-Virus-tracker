@@ -10,15 +10,12 @@ import org.apache.commons.csv.CSVRecord;
 
 import com.vikram.bishwajit.coronavirustracker.beans.CoronaVirusTrackerBean;
 import com.vikram.bishwajit.coronavirustracker.models.LocationStats;
-import com.vikram.bishwajit.coronavirustracker.models.WorldStats;
 
 /**
  * @author Bishwajit.
  *
  */
 public class CoronaVirusTrackerHelper {
-
-	WorldStats worldStats = new WorldStats();
 
 	public void parsingCSVForConfirmedCases(String encodedString, CoronaVirusTrackerBean coronaVirusTrackerBean)
 			throws IOException {
@@ -36,10 +33,8 @@ public class CoronaVirusTrackerHelper {
 			locationStats.setTotalNumberOfConfirmedCasesPerCountry(cases);
 			locationStatsSet.add(locationStats);
 		}
-		worldStats.setTotalNumberOfCases(totalConfirmedCases);
-		System.out.println("Confirmd : " + totalConfirmedCases);
+		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfCases(totalConfirmedCases);
 		coronaVirusTrackerBean.setAllLocationStats(locationStatsSet);
-		coronaVirusTrackerBean.setWorldStats(worldStats);
 	}
 
 	public void parsingCSVForDeathCases(String encodedString, CoronaVirusTrackerBean coronaVirusTrackerBean)
@@ -57,11 +52,10 @@ public class CoronaVirusTrackerHelper {
 			locationStats.setCountry(record.get("Country/Region"));
 			locationStats.setTotalNumberOfDeathCasesPerCountry(cases);
 			locationStatsSet.add(locationStats);
+			coronaVirusTrackerBean.getLocationstats().setTotalNumberOfDeathCasesPerCountry(cases);
 		}
-		worldStats.setTotalNumberOfDeath(totalDeathCases);
-		System.out.println("Death Case : " + totalDeathCases);
+		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfDeath(totalDeathCases);
 		coronaVirusTrackerBean.setAllLocationStats(locationStatsSet);
-		coronaVirusTrackerBean.setWorldStats(worldStats);
 	}
 
 	public void parsingCSVForRecoveredCases(String encodedString, CoronaVirusTrackerBean coronaVirusTrackerBean)
@@ -78,11 +72,11 @@ public class CoronaVirusTrackerHelper {
 			locationStats.setProvince(record.get("Province/State"));
 			locationStats.setCountry(record.get("Country/Region"));
 			locationStats.setTotalNumberOfRecoveredCasesPerCountry(cases);
+			coronaVirusTrackerBean.getLocationstats().setTotalNumberOfRecoveredCasesPerCountry(cases);
 			locationStatsSet.add(locationStats);
 		}
-		worldStats.setTotalNumberOfRecoveries(totalRecoveredCases);
-		System.out.println("Recovered : " + totalRecoveredCases);
+		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfRecoveries(totalRecoveredCases);
 		coronaVirusTrackerBean.setAllLocationStats(locationStatsSet);
-		coronaVirusTrackerBean.setWorldStats(worldStats);
+
 	}
 }

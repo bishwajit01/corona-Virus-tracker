@@ -5,6 +5,7 @@ package com.vikram.bishwajit.coronavirustracker.models;
  *
  */
 public class LocationStats {
+	
 	private String province;
 	private String country;
 	private int totalNumberOfConfirmedCasesPerCountry;
@@ -47,7 +48,9 @@ public class LocationStats {
 	}
 
 	/**
-	 * @param totalNumberOfConfirmedCasesPerCountry the totalNumberOfConfirmedCasesPerCountry to set
+	 * @param totalNumberOfConfirmedCasesPerCountry the
+	 *                                              totalNumberOfConfirmedCasesPerCountry
+	 *                                              to set
 	 */
 	public void setTotalNumberOfConfirmedCasesPerCountry(int totalNumberOfConfirmedCasesPerCountry) {
 		this.totalNumberOfConfirmedCasesPerCountry = totalNumberOfConfirmedCasesPerCountry;
@@ -61,7 +64,9 @@ public class LocationStats {
 	}
 
 	/**
-	 * @param totalNumberOfDeathCasesPerCountry the totalNumberOfDeathCasesPerCountry to set
+	 * @param totalNumberOfDeathCasesPerCountry the
+	 *                                          totalNumberOfDeathCasesPerCountry to
+	 *                                          set
 	 */
 	public void setTotalNumberOfDeathCasesPerCountry(int totalNumberOfDeathCasesPerCountry) {
 		this.totalNumberOfDeathCasesPerCountry = totalNumberOfDeathCasesPerCountry;
@@ -75,10 +80,12 @@ public class LocationStats {
 	}
 
 	/**
-	 * @param totalNumberOfRecoveredCasesPerCountry the totalNumberOfRecoveredCasesPerCountry to set
+	 * @param totalNumberOfRecoveredCasesPerCountry the
+	 *                                              totalNumberOfRecoveredCasesPerCountry
+	 *                                              to set
 	 */
 	public void setTotalNumberOfRecoveredCasesPerCountry(int totalNumberOfRecoveredCasesPerCountry) {
 		this.totalNumberOfRecoveredCasesPerCountry = totalNumberOfRecoveredCasesPerCountry;
 	}
-	
+
 }
