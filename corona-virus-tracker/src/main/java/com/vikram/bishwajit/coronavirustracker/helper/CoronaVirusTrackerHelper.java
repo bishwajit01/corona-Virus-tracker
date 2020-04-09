@@ -100,11 +100,13 @@ public class CoronaVirusTrackerHelper {
 		LocationStats locationStats = null;
 		for (String country : coronaVirusTrackerBean.getConfirmedCaseMap().keySet()) {
 			locationStats = new LocationStats();
-			locationStats.setTotalNumberOfConfirmedCasesPerCountry(
-					coronaVirusTrackerBean.getConfirmedCaseMap().get(country));
-			locationStats.setTotalNumberOfDeathCasesPerCountry(coronaVirusTrackerBean.getDeathCaseMap().get(country));
-			locationStats
-					.setTotalNumberOfRecoveredCasesPerCountry(coronaVirusTrackerBean.getRecoverCaseMap().get(country));
+			int confirmedCases = coronaVirusTrackerBean.getConfirmedCaseMap().get(country);
+			int deathCases = coronaVirusTrackerBean.getDeathCaseMap().get(country);
+			int recoveredCases = coronaVirusTrackerBean.getRecoverCaseMap().get(country);
+			locationStats.setTotalNumberOfConfirmedCasesPerCountry(confirmedCases);
+			locationStats.setTotalNumberOfDeathCasesPerCountry(deathCases);
+			locationStats.setTotalNumberOfRecoveredCasesPerCountry(recoveredCases);
+			locationStats.setActiveCasesPerCountry(confirmedCases - deathCases - recoveredCases);
 			locationMap.put(country, locationStats);
 		}
 		coronaVirusTrackerBean.setLocationMasterMap(locationMap);

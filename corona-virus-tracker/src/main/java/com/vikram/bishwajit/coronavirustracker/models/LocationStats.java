@@ -10,6 +10,7 @@ public class LocationStats {
 	private int totalNumberOfConfirmedCasesPerCountry;
 	private int totalNumberOfDeathCasesPerCountry;
 	private int totalNumberOfRecoveredCasesPerCountry;
+	private int activeCasesPerCountry;
 
 	/**
 	 * @return the country
@@ -47,6 +48,20 @@ public class LocationStats {
 
 	public void setTotalNumberOfRecoveredCasesPerCountry(int totalNumberOfRecoveredCasesPerCountry) {
 		this.totalNumberOfRecoveredCasesPerCountry = totalNumberOfRecoveredCasesPerCountry;
+	}
+
+	/**
+	 * @return the activeCasesPerCountry
+	 */
+	public int getActiveCasesPerCountry() {
+		return activeCasesPerCountry;
+	}
+
+	/**
+	 * @param activeCasesPerCountry the activeCasesPerCountry to set
+	 */
+	public void setActiveCasesPerCountry(int activeCasesPerCountry) {
+		this.activeCasesPerCountry = activeCasesPerCountry;
 	}
 
 }
