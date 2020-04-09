@@ -2,8 +2,8 @@ package com.vikram.bishwajit.coronavirustracker.helper;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -20,7 +20,7 @@ public class CoronaVirusTrackerHelper {
 	public void parsingCSVForConfirmedCases(String encodedString, CoronaVirusTrackerBean coronaVirusTrackerBean)
 			throws IOException {
 		LocationStats locationStats = null;
-		Set<LocationStats> locationStatsSet = new HashSet<LocationStats>();
+		Map<String, Integer> locationStatMap = new HashMap<String, Integer>();
 		int totalConfirmedCases = 0;
 		StringReader stringToBeParsed = new StringReader(encodedString);
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(stringToBeParsed);
@@ -28,40 +28,51 @@ public class CoronaVirusTrackerHelper {
 			int cases = Integer.parseInt(record.get(record.size() - 1));
 			totalConfirmedCases += cases;
 			locationStats = new LocationStats();
-			locationStats.setProvince(record.get("Province/State"));
 			locationStats.setCountry(record.get("Country/Region"));
-			locationStats.setTotalNumberOfConfirmedCasesPerCountry(cases);
-			locationStatsSet.add(locationStats);
+			if (locationStatMap.containsKey(record.get("Country/Region"))) {
+				int countrycase = 0;
+				if (null != locationStatMap.get(record.get("Country/Region"))) {
+					countrycase = locationStatMap.get(record.get("Country/Region"));
+				}
+				locationStatMap.put(record.get("Country/Region"), countrycase + cases);
+			} else {
+				locationStatMap.put(record.get("Country/Region"), cases);
+			}
 		}
 		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfCases(totalConfirmedCases);
-		coronaVirusTrackerBean.setAllLocationStats(locationStatsSet);
+		coronaVirusTrackerBean.setConfirmedCaseMap(locationStatMap);
 	}
 
 	public void parsingCSVForDeathCases(String encodedString, CoronaVirusTrackerBean coronaVirusTrackerBean)
 			throws IOException {
 		LocationStats locationStats = null;
-		Set<LocationStats> locationStatsSet = new HashSet<LocationStats>();
 		int totalDeathCases = 0;
+		Map<String, Integer> locationStatMap = new HashMap<String, Integer>();
 		StringReader stringToBeParsed = new StringReader(encodedString);
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(stringToBeParsed);
 		for (CSVRecord record : records) {
 			int cases = Integer.parseInt(record.get(record.size() - 1));
 			totalDeathCases += cases;
 			locationStats = new LocationStats();
-			locationStats.setProvince(record.get("Province/State"));
 			locationStats.setCountry(record.get("Country/Region"));
-			locationStats.setTotalNumberOfDeathCasesPerCountry(cases);
-			locationStatsSet.add(locationStats);
-			coronaVirusTrackerBean.getLocationstats().setTotalNumberOfDeathCasesPerCountry(cases);
+			if (locationStatMap.containsKey(record.get("Country/Region"))) {
+				int countrycase = 0;
+				if (null != locationStatMap.get(record.get("Country/Region"))) {
+					countrycase = locationStatMap.get(record.get("Country/Region"));
+				}
+				locationStatMap.put(record.get("Country/Region"), countrycase + cases);
+			} else {
+				locationStatMap.put(record.get("Country/Region"), cases);
+			}
 		}
 		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfDeath(totalDeathCases);
-		coronaVirusTrackerBean.setAllLocationStats(locationStatsSet);
+		coronaVirusTrackerBean.setDeathCaseMap(locationStatMap);
 	}
 
 	public void parsingCSVForRecoveredCases(String encodedString, CoronaVirusTrackerBean coronaVirusTrackerBean)
 			throws IOException {
 		LocationStats locationStats = null;
-		Set<LocationStats> locationStatsSet = new HashSet<LocationStats>();
+		Map<String, Integer> locationStatMap = new HashMap<String, Integer>();
 		int totalRecoveredCases = 0;
 		StringReader stringToBeParsed = new StringReader(encodedString);
 		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(stringToBeParsed);
@@ -69,14 +80,33 @@ public class CoronaVirusTrackerHelper {
 			int cases = Integer.parseInt(record.get(record.size() - 1));
 			totalRecoveredCases += cases;
 			locationStats = new LocationStats();
-			locationStats.setProvince(record.get("Province/State"));
 			locationStats.setCountry(record.get("Country/Region"));
-			locationStats.setTotalNumberOfRecoveredCasesPerCountry(cases);
-			coronaVirusTrackerBean.getLocationstats().setTotalNumberOfRecoveredCasesPerCountry(cases);
-			locationStatsSet.add(locationStats);
+			if (locationStatMap.containsKey(record.get("Country/Region"))) {
+				int countrycase = 0;
+				if (null != locationStatMap.get(record.get("Country/Region"))) {
+					countrycase = locationStatMap.get(record.get("Country/Region"));
+				}
+				locationStatMap.put(record.get("Country/Region"), countrycase + cases);
+			} else {
+				locationStatMap.put(record.get("Country/Region"), cases);
+			}
 		}
 		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfRecoveries(totalRecoveredCases);
-		coronaVirusTrackerBean.setAllLocationStats(locationStatsSet);
+		coronaVirusTrackerBean.setRecoverCaseMap(locationStatMap);
+	}
 
+	public void preparingMasterMap(CoronaVirusTrackerBean coronaVirusTrackerBean) {
+		Map<String, LocationStats> locationMap = new HashMap<String, LocationStats>();
+		LocationStats locationStats = null;
+		for (String country : coronaVirusTrackerBean.getConfirmedCaseMap().keySet()) {
+			locationStats = new LocationStats();
+			locationStats.setTotalNumberOfConfirmedCasesPerCountry(
+					coronaVirusTrackerBean.getConfirmedCaseMap().get(country));
+			locationStats.setTotalNumberOfDeathCasesPerCountry(coronaVirusTrackerBean.getDeathCaseMap().get(country));
+			locationStats
+					.setTotalNumberOfRecoveredCasesPerCountry(coronaVirusTrackerBean.getRecoverCaseMap().get(country));
+			locationMap.put(country, locationStats);
+		}
+		coronaVirusTrackerBean.setLocationMasterMap(locationMap);
 	}
 }
