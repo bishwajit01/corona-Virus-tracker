@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>CORONA VIRUS TRACKER</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<!-- <link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+			crossorigin="anonymous"> -->
 	</head>
 	<body>
 		<div>
-			<table border="1">
+			<table border="5">
 				<tr>
-					<th align="center">State/Province</th>
 					<th align="center">Country</th>
 					<th align="center">Total Cases Confirmed</th>
 					<th align="center">Total Cases Death</th>
 					<th align="center">Total Cases Recovered</th>
 				</tr>
-				<tr th:each= "locationStat : ${locationStats}">
-					<td th:text="${locationStat.province}" align="center"/>
-					<td th:text="${locationStat.country}" align="center"/>
-					<td th:text="${locationStat.totalNumberOfConfirmedCasesPerCountry}" align="center"/>
-					<td th:text="${locationStat.totalNumberOfDeathCasesPerCountry}" align="center"/>
-					<td th:text="${locationStat.totalNumberOfRecoveredCasesPerCountry}" align="center"/>
+				<tr th:each="locationStat : ${locationStats}">
+					<td th:text="${locationStat.key}" align="center" />
+					<td
+						th:text="${locationStat.value.totalNumberOfConfirmedCasesPerCountry}"
+						align="center" />
+					<td
+						th:text="${locationStat.value.totalNumberOfDeathCasesPerCountry}"
+						align="center" />
+					<td
+						th:text="${locationStat.value.totalNumberOfRecoveredCasesPerCountry}"
+						align="center" />
 				</tr>
 			</table>
 		</div>
