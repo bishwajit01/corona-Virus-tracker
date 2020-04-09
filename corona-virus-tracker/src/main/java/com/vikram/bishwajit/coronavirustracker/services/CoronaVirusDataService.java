@@ -54,6 +54,11 @@ public class CoronaVirusDataService {
 		request = HttpRequest.newBuilder().uri(URI.create(CoronaVirusTrackerConstant.RECOVERED_CASES_URL)).build();
 		response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		coronaVirusTrackerHelper.parsingCSVForRecoveredCases(response.body(), coronaVirusTrackerBean);
+		
+		/**
+		 * Map Preparation.
+		 */
+		coronaVirusTrackerHelper.preparingMasterMap(coronaVirusTrackerBean);
 	}
 
 	/**
