@@ -35,7 +35,8 @@ public class CoronaVirusController {
 
 	@GetMapping("location")
 	public String viewByLocation(Model model) {
-		model.addAttribute("locationStats", coronaVirusDataService.getCoronaVirusTrackerBean().getAllLocationStats());
+		model.addAttribute("locationStats", coronaVirusDataService.getCoronaVirusTrackerBean().getLocationMasterMap());
+		System.out.println(coronaVirusDataService.getCoronaVirusTrackerBean().getLocationMasterMap());
 		return "viewByLocation";
 	}
 
