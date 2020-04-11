@@ -20,23 +20,21 @@ public class CoronaVirusController {
 
 	@Autowired
 	CoronaVirusDataService coronaVirusDataService;
+	
+	@GetMapping("/")
+	public String choice() {
+		return "dashboard";
+	}
 
 	@GetMapping("home")
 	public String coronaVirusInitialView(Model model) throws IOException, InterruptedException {
 		model.addAttribute("worldStats", coronaVirusDataService.getCoronaVirusTrackerBean().getWorldstats());
-		System.out.println(
-				"Cases:" + coronaVirusDataService.getCoronaVirusTrackerBean().getWorldstats().getTotalNumberOfCases());
-		System.out.println(
-				"Death:" + coronaVirusDataService.getCoronaVirusTrackerBean().getWorldstats().getTotalNumberOfDeath());
-		System.out.println("Recover:"
-				+ coronaVirusDataService.getCoronaVirusTrackerBean().getWorldstats().getTotalNumberOfRecoveries());
 		return "coronaIntialView";
 	}
 
 	@GetMapping("location")
 	public String viewByLocation(Model model) {
 		model.addAttribute("locationStats", coronaVirusDataService.getCoronaVirusTrackerBean().getLocationMasterMap());
-		System.out.println(coronaVirusDataService.getCoronaVirusTrackerBean().getLocationMasterMap());
 		return "viewByLocation";
 	}
 
