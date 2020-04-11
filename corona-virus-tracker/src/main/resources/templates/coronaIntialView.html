@@ -15,6 +15,9 @@
 			<div class="jumbotron">
 				<h1>Total Number of Confirmed Cases</h1>
 				<h3 class="display-4" th:text=${worldStats.totalNumberOfCases}></h3>
+				<a href="location" title="Click Here">
+					<p>Click here to Know Region Wise Spread of Corona</p>
+				</a>
 				<br>
 				<h1>Total Number of Death Cases</h1>
 				<h3 class="display-4" th:text=${worldStats.totalNumberOfDeath}></h3>
@@ -22,9 +25,6 @@
 				<h1>Total Number of Recovered Cases</h1>
 				<h3 class="display-4" th:text=${worldStats.totalNumberOfRecoveries}></h3>
 				<br><br>
-				<a href="location" title="Click Here">
-					<p>Click here to Know Region Wise Spread of Corona</p>
-				</a>
 			</div>
 		</div>
 	</body>
