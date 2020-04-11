@@ -107,6 +107,7 @@ public class CoronaVirusTrackerHelper {
 			locationStats.setTotalNumberOfDeathCasesPerCountry(deathCases);
 			locationStats.setTotalNumberOfRecoveredCasesPerCountry(recoveredCases);
 			locationStats.setActiveCasesPerCountry(confirmedCases - deathCases - recoveredCases);
+			locationStats.setClosedCasesPerCountry(deathCases + recoveredCases);
 			locationMap.put(country, locationStats);
 		}
 		coronaVirusTrackerBean.setLocationMasterMap(locationMap);
