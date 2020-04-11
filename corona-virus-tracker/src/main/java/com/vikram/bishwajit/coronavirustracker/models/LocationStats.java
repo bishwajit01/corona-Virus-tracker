@@ -11,6 +11,7 @@ public class LocationStats {
 	private int totalNumberOfDeathCasesPerCountry;
 	private int totalNumberOfRecoveredCasesPerCountry;
 	private int activeCasesPerCountry;
+	private int closedCasesPerCountry;
 
 	/**
 	 * @return the country
@@ -64,4 +65,18 @@ public class LocationStats {
 		this.activeCasesPerCountry = activeCasesPerCountry;
 	}
 
+	/**
+	 * @return the closedCasesPerCountry
+	 */
+	public int getClosedCasesPerCountry() {
+		return closedCasesPerCountry;
+	}
+
+	/**
+	 * @param closedCasesPerCountry the closedCasesPerCountry to set
+	 */
+	public void setClosedCasesPerCountry(int closedCasesPerCountry) {
+		this.closedCasesPerCountry = closedCasesPerCountry;
+	}
+	
 }

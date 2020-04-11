@@ -17,6 +17,7 @@
 					<th align="center">Total Cases Death</th>
 					<th align="center">Total Cases Recovered</th>
 					<th align="center">Active Cases</th>
+					<th align="center">Closed Cases</th>
 				</tr>
 				<tr th:each="locationStat : ${locationStats}">
 					<td th:text="${locationStat.key}" align="center" />
@@ -31,6 +32,9 @@
 						align="center" />
 					<td
 						th:text="${locationStat.value.activeCasesPerCountry}"
+						align="center" />
+					<td
+						th:text="${locationStat.value.closedCasesPerCountry}"
 						align="center" />
 				</tr>
 			</table>
