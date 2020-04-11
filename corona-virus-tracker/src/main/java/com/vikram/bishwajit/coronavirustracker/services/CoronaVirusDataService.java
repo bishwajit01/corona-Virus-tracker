@@ -28,7 +28,7 @@ public class CoronaVirusDataService {
 
 	@PostConstruct
 	@Scheduled(cron = "* * 1 * * *")
-	public void fetchConfirmedCasesDataFromURL() throws IOException, InterruptedException {
+	public void fetchCasesDataFromURL() throws IOException, InterruptedException {
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest request = null;
 		HttpResponse<String> response = null;
@@ -54,7 +54,7 @@ public class CoronaVirusDataService {
 		request = HttpRequest.newBuilder().uri(URI.create(CoronaVirusTrackerConstant.RECOVERED_CASES_URL)).build();
 		response = client.send(request, HttpResponse.BodyHandlers.ofString());
 		coronaVirusTrackerHelper.parsingCSVForRecoveredCases(response.body(), coronaVirusTrackerBean);
-		
+
 		/**
 		 * Map Preparation.
 		 */
