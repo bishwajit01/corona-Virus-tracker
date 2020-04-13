@@ -6,7 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import javax.annotation.PostConstruct;
+//import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,7 +26,7 @@ public class CoronaVirusDataService {
 	@Autowired
 	CoronaVirusTrackerBean coronaVirusTrackerBean;
 
-	@PostConstruct
+	// @PostConstruct
 	@Scheduled(cron = "* * 1 * * *")
 	public void fetchCasesDataFromURL() throws IOException, InterruptedException {
 		HttpClient client = HttpClient.newHttpClient();
@@ -59,6 +59,12 @@ public class CoronaVirusDataService {
 		 * Map Preparation.
 		 */
 		coronaVirusTrackerHelper.preparingMasterMap(coronaVirusTrackerBean);
+	}
+
+	public void fetchCasesDataFromCSV() throws IOException {
+		CoronaVirusTrackerHelper coronaVirusTrackerHelper = new CoronaVirusTrackerHelper();
+		String filePath = CoronaVirusTrackerConstant.LCOAL_CSV_FILE;
+		coronaVirusTrackerHelper.parsingCSVFILE(filePath, coronaVirusTrackerBean);
 	}
 
 	/**

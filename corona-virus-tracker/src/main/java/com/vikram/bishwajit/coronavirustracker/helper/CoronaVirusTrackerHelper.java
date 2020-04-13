@@ -1,6 +1,8 @@
 package com.vikram.bishwajit.coronavirustracker.helper;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,5 +113,53 @@ public class CoronaVirusTrackerHelper {
 			locationMap.put(country, locationStats);
 		}
 		coronaVirusTrackerBean.setLocationMasterMap(locationMap);
+	}
+
+	public void parsingCSVFILE(String filePath, CoronaVirusTrackerBean coronaVirusTrackerBean) throws IOException {
+		LocationStats locationStats = null;
+		Map<String, LocationStats> locationStatMap = new HashMap<String, LocationStats>();
+		Reader in = new FileReader(filePath);
+		Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
+		int totalConfirmedCases = 0;
+		int totalRecoveredCases = 0;
+		int totalDeathCases = 0;
+		for (CSVRecord record : records) {
+			int cases = 0;
+			locationStats = new LocationStats();
+			locationStats.setCountry(record.get("Countries"));
+			System.out.println("----->" + record.get("Total Cases").replaceAll(",", ""));
+			String totalConfirmedCasesPerCountry = record.get("Total Cases").replaceAll(",", "").trim();
+			String totlRecoveredCasesPerCountry = record.get("Total Recovered").replaceAll(",", "").trim();
+			String totalDeathCasesPerCountry = record.get("Total Death").replaceAll(",", "").trim();
+			if (!totalConfirmedCasesPerCountry.equals("N/A") && !totalConfirmedCasesPerCountry.equals("")) {
+				cases = Integer.parseInt(totalConfirmedCasesPerCountry);
+				totalConfirmedCases += cases;
+				locationStats.setTotalNumberOfConfirmedCasesPerCountry(cases);
+			} else {
+				totalConfirmedCases += 0;
+				locationStats.setTotalNumberOfConfirmedCasesPerCountry(0);
+			}
+			if (!totlRecoveredCasesPerCountry.equals("N/A") && !totlRecoveredCasesPerCountry.equals("")) {
+				cases = Integer.parseInt(totlRecoveredCasesPerCountry);
+				totalRecoveredCases += cases;
+				locationStats.setTotalNumberOfRecoveredCasesPerCountry(cases);
+			} else {
+				totalRecoveredCases += 0;
+				locationStats.setTotalNumberOfRecoveredCasesPerCountry(0);
+			}
+			if (!totalDeathCasesPerCountry.equals("N/A") && !totalDeathCasesPerCountry.equals("")) {
+				cases = Integer.parseInt(totalDeathCasesPerCountry);
+				totalDeathCases += cases;
+				locationStats.setTotalNumberOfDeathCasesPerCountry(cases);
+			} else {
+				totalDeathCases += 0;
+				locationStats.setTotalNumberOfDeathCasesPerCountry(0);
+			}
+			locationStatMap.put(record.get("Countries"), locationStats);
+		}
+		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfCases(totalConfirmedCases);
+		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfDeath(totalDeathCases);
+		coronaVirusTrackerBean.getWorldstats().setTotalNumberOfRecoveries(totalRecoveredCases);
+		coronaVirusTrackerBean.setLocationMasterMap(locationStatMap);
 	}
 }
