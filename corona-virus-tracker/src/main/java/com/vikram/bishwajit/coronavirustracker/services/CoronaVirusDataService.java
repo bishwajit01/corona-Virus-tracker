@@ -61,9 +61,13 @@ public class CoronaVirusDataService {
 		coronaVirusTrackerHelper.preparingMasterMap(coronaVirusTrackerBean);
 	}
 
-	public void fetchCasesDataFromCSV() throws IOException {
+	@Scheduled(cron = "* * 1 * * *")
+	public void fetchCasesDataFromCSV() throws IOException, InterruptedException {
+		Process process = Runtime.getRuntime().exec(CoronaVirusTrackerConstant.PYTHON + " "
+				+ CoronaVirusTrackerConstant.PATH + CoronaVirusTrackerConstant.PYTHON_FILE_NAME);
+		Thread.sleep(10000);
 		CoronaVirusTrackerHelper coronaVirusTrackerHelper = new CoronaVirusTrackerHelper();
-		String filePath = CoronaVirusTrackerConstant.LCOAL_CSV_FILE;
+		String filePath = CoronaVirusTrackerConstant.PATH + CoronaVirusTrackerConstant.CSV_FILE_NAME;
 		coronaVirusTrackerHelper.parsingCSVFILE(filePath, coronaVirusTrackerBean);
 	}
 
